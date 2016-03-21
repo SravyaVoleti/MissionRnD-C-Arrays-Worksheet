@@ -22,5 +22,35 @@ struct student {
 };
 
 struct student ** topKStudents(struct student *students, int len, int K) {
-	return NULL;
+
+	int  i, j;
+	struct student std1;
+	
+	if (students == NULL || len <= 0 || K <= 0 )
+		return NULL;
+
+	
+	
+	struct student **topKstudents = (struct student**)calloc(K, sizeof(struct student));
+	
+	for (i = 0; i < len; i++) {
+		for (j = i + 1; j < len; j++) {
+			if (students[i].score < students[j].score) {
+
+				std1 = students[i];
+				students[i] = students[j];
+				students[j] = std1;
+
+			}
+		}
+
+	}
+	
+	
+	for (i = 0; i < K; i++)
+		topKstudents[i] = &students[i];
+
+
+
+	return topKstudents;
 }
